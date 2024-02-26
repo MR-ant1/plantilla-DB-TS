@@ -1,24 +1,24 @@
-import express from "express";
-import dotenv from "dotenv";
-import { getRoles } from "./controllers/roleController";
-
-dotenv.config();
-
-const app = express();
+import 'dotenv/config'
+import { app } from './app';
+import { AppDataSource } from './database/db';
 
 const PORT = process.env.PORT || 4001;
 
-app.get('/healthy', (req, res) => {
-    res.status(200).json(
-        {
-            success: true,
-            message: 'Server is healthy'
-        }
-    );
-})
 
-//roles routes
-app.get('/roles', getRoles)
-app.listen(PORT, () => {
-    console.log(`Server is running on port: ${PORT}`);
-})
+const startServer = () => {
+    AppDataSource.initialize()
+        .then(() => {
+            console.log('database connected')
+
+            app.listen(PORT, () => {
+                console.log(`Server is running on port: ${PORT}`)
+            })
+        })
+
+        .catch(error => {
+            console.log(error);
+        })
+}
+startServer();
+
+
