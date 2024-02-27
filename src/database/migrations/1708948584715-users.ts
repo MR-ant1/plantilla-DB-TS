@@ -59,7 +59,7 @@ export class Users1708948584715 implements MigrationInterface {
                 ]
             }),
             true
-        ); 
+        );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

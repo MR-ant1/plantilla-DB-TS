@@ -30,12 +30,12 @@ export class Books1708950081474 implements MigrationInterface {
                     }
                 ],
                 foreignKeys: [
-                {
-                    columnNames: ["author_id"],
-                    referencedTableName: "authors",
-                    referencedColumnNames: ["id"],
-                    onDelete: "CASCADE"
-                }]
+                    {
+                        columnNames: ["author_id"],
+                        referencedTableName: "authors",
+                        referencedColumnNames: ["id"],
+                        onDelete: "CASCADE"
+                    }]
             }),
             true
         );

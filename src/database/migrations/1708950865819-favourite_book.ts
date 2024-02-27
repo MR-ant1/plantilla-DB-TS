@@ -17,7 +17,7 @@ export class FavouriteBook1708950865819 implements MigrationInterface {
                     {
                         name: "user_id",
                         type: "int",
-                        
+
                     },
                     {
                         name: "book_id",
@@ -31,7 +31,7 @@ export class FavouriteBook1708950865819 implements MigrationInterface {
                         referencedColumnNames: ["id"],
                         onDelete: "CASCADE"
                     },
-                
+
                     {
                         columnNames: ["book_id"],
                         referencedTableName: "books",

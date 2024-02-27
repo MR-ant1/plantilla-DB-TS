@@ -43,7 +43,7 @@ export class Loans1708951194654 implements MigrationInterface {
                         referencedColumnNames: ["id"],
                         onDelete: "CASCADE"
                     },
-                
+
                     {
                         columnNames: ["book_id"],
                         referencedTableName: "books",
