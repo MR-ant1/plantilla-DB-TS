@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./src/server.ts",
     "run-migrations": "typeorm-ts-node-commonjs migration:run -d ./src/database/db.ts",
-    "revert-migrations": "npx typeorm-ts-node-commonjs migration:revert -d ./src/database/db.ts"
+    "revert-migrations": "typeorm-ts-node-commonjs migration:revert -d ./src/database/db.ts"
   },
   "author": "",
   "license": "ISC",
