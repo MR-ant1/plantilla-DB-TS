@@ -7,10 +7,13 @@ export class Author extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id!: number
+
     @Column({ name: 'name' })
     name!: string
+
     @Column({ name: 'nacionality' })
     nacionality!: string
+    
     @OneToMany(() => Book, (books) => books.author)
     books!: Book[]
 }

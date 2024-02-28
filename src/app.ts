@@ -24,40 +24,40 @@ app.get('/healthy', (req, res) => {
 })
 
 //roles routes
-app.get('/roles', getRoles)
-app.post('/roles', createRoles)
-app.put('/roles/:id', updateRoles)
-app.delete('/roles/:id', deleteRoles)
+app.get('/api/roles', getRoles)
+app.post('/api/roles', createRoles)
+app.put('/api/roles/:id', updateRoles)
+app.delete('/api/roles/:id', deleteRoles)
 
 //users routes
-app.get('/users', getUsers)
-app.post('users', createUsers)
-app.put('/users/:id', updateUsers)
-app.delete('/users/:id', deleteUsers)
+app.get('/api/users', getUsers)
+app.post('api/users', createUsers)
+app.put('/api/users/:id', updateUsers)
+app.delete('/api/users/:id', deleteUsers)
 
 //authors routes
-app.get('/authors', getAuthors)
-app.post('authors', createAuthors)
-app.put('/authors/:id', updateAuthors)
-app.delete('/authors/:id', deleteAuthors)
+app.get('/api/authors', getAuthors)
+app.post('/api/authors', createAuthors)
+app.put('/api/authors/:id', updateAuthors)
+app.delete('/api/authors/:id', deleteAuthors)
 
 //books routes
-app.get('/books', getBooks)
-app.post('books', createBooks)
-app.put('/books/:id', updateBooks)
-app.delete('/books/:id', deleteBooks)
+app.get('/api/books', getBooks)
+app.post('/api/books', createBooks)
+app.put('/api/books/:id', updateBooks)
+app.delete('/api/books/:id', deleteBooks)
 
 //favourite books routes
-app.get('/favouiteBooks', getFavouriteBooks)
-app.post('favouiteBooks', createFavouriteBooks)
-app.put('/favouiteBooks/:id', updateFavouriteBooks)
-app.delete('/favouiteBooks/:id', deleteFavouriteBooks)
+app.get('/api/favouiteBooks', getFavouriteBooks)
+app.post('api/favouiteBooks', createFavouriteBooks)
+app.put('/api/favouiteBooks/:id', updateFavouriteBooks)
+app.delete('/api/favouiteBooks/:id', deleteFavouriteBooks)
 
 //loans routes
-app.get('/loans', getLoans)
-app.post('loans', createLoans)
-app.put('/loans/:id', updateLoans)
-app.delete('/loans/:id', deleteLoans)
+app.get('/api/loans', getLoans)
+app.post('api/loans', createLoans)
+app.put('/api/loans/:id', updateLoans)
+app.delete('/api/loans/:id', deleteLoans)
 
 //auth routes
 app.post('/api/register', register)
