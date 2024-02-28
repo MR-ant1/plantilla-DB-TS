@@ -10,6 +10,10 @@ import { Loans1708951194654 } from "./migrations/1708951194654-loans";
 import { AddIsActiveToUsers1709025595468 } from "./migrations/1709025595468-add_is_active_to_users";
 import { Role } from "../models/Role";
 import { User } from "../models/User";
+import { Author } from "../models/Author";
+import { Book } from "../models/Book";
+import { FavouriteBook } from "../models/FavouriteBook";
+import { Loan } from "../models/Loan";
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -18,7 +22,7 @@ export const AppDataSource = new DataSource({
     username: process.env.DB_USER || "root",
     password: process.env.DB_PASSWORD || "",
     database: process.env.DB_DATABASE || "test",
-    entities: [Role, User],
+    entities: [Role, User, Author, Book, FavouriteBook, Loan],
     migrations: [Roles1708945319315, Users1708948584715, Authors1708949619955, Books1708950081474, FavouriteBook1708950865819, Loans1708951194654, AddIsActiveToUsers1709025595468],
     synchronize: false,
     logging: false,

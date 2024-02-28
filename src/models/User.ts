@@ -1,5 +1,7 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { Role } from "./Role"
+import { FavouriteBook } from "./FavouriteBook"
+import { Loan } from "./Loan"
 
 @Entity('users')
 export class User extends BaseEntity {
@@ -21,4 +23,8 @@ export class User extends BaseEntity {
     @ManyToOne(() => Role, (role) => role.users)
     @JoinColumn({ name: "role_id" })
     role!: Role;
+    @OneToMany(() => FavouriteBook, (favourite_books) => favourite_books.users)
+    favourite_books!: FavouriteBook[]
+    @OneToMany(() => Loan, (loans) => loans.users)
+    loans!: Loan[]
 }
