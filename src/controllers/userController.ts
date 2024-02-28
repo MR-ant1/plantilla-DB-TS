@@ -21,7 +21,7 @@ export const getUsers = async (req: Request, res: Response) => {
                 message: 'Users retrieved succesfully',
                 data: users //introducimos data (el nombre data es lo de menos. lo importante es traer users) en la respuesta para obtener "el array" de todos los usuarios
             }
-        )  
+        )
     } catch (error) {
         res.status(500).json({
             success: false,
@@ -30,17 +30,43 @@ export const getUsers = async (req: Request, res: Response) => {
         })
     }
 }
+export const getUserById = async (req: Request, res: Response) => {
+    try {
+        const userId = req.params.id
+        const user = await User.findOneBy({
+            id: parseInt(userId)
+        })
+        if(!user) {
+            return res.status(404).json ({
+                success: false,
+                message: "user not found"
+            })
+        }
+        res.status(200).json({
+            success: true,
+            message: "user retrieved",
+            data: user
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "user cant be retrieved",
+            error: error
+        })
+    }
+}
 
 export const createUsers = (req: Request, res: Response) => {
     try {
+        
         req.body
         res.status(201).json(
             {
                 success: true,
                 message: "User created succesfully"
             }
-        ) 
-    } catch (error){
+        )
+    } catch (error) {
         res.status(500).json({
             success: false,
             message: "can't create user",
@@ -48,15 +74,19 @@ export const createUsers = (req: Request, res: Response) => {
         })
     }
 }
-export const updateUsers = (req: Request, res: Response) => {
+export const updateUsers = async (req: Request, res: Response) => {
     try {
-        req.params.id
+        
+        const userId = req.params.id
+        const user = await User.findOneBy(
+          select:  
+        )
         res.status(200).json(
             {
                 success: true,
                 message: "User updated succesfully"
             }
-        )  
+        )
     } catch (error) {
         res.status(500).json({
             success: false,
@@ -73,7 +103,7 @@ export const deleteUsers = (req: Request, res: Response) => {
                 success: true,
                 message: "User deleted succesfully"
             }
-        ) 
+        )
     } catch (error) {
         res.status(500).json({
             success: false,
