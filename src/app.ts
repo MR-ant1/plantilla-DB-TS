@@ -30,22 +30,22 @@ app.put('/roles/:id', updateRoles)
 app.delete('/roles/:id', deleteRoles)
 
 //users routes
-app.get('/user', getUsers)
-app.post('user', createUsers)
-app.put('/user/:id', updateUsers)
-app.delete('/user/:id', deleteUsers)
+app.get('/users', getUsers)
+app.post('users', createUsers)
+app.put('/users/:id', updateUsers)
+app.delete('/users/:id', deleteUsers)
 
 //authors routes
-app.get('/author', getAuthors)
-app.post('author', createAuthors)
-app.put('/author/:id', updateAuthors)
-app.delete('/author/:id', deleteAuthors)
+app.get('/authors', getAuthors)
+app.post('authors', createAuthors)
+app.put('/authors/:id', updateAuthors)
+app.delete('/authors/:id', deleteAuthors)
 
 //books routes
-app.get('/book', getBooks)
-app.post('book', createBooks)
-app.put('/book/:id', updateBooks)
-app.delete('/book/:id', deleteBooks)
+app.get('/books', getBooks)
+app.post('books', createBooks)
+app.put('/books/:id', updateBooks)
+app.delete('/books/:id', deleteBooks)
 
 //favourite books routes
 app.get('/favouiteBooks', getFavouriteBooks)
