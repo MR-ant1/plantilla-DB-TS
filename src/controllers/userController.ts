@@ -36,8 +36,8 @@ export const getUserById = async (req: Request, res: Response) => {
         const user = await User.findOneBy({
             id: parseInt(userId)
         })
-        if(!user) {
-            return res.status(404).json ({
+        if (!user) {
+            return res.status(404).json({
                 success: false,
                 message: "user not found"
             })
@@ -58,7 +58,7 @@ export const getUserById = async (req: Request, res: Response) => {
 
 export const createUsers = (req: Request, res: Response) => {
     try {
-        
+
         req.body
         res.status(201).json(
             {
@@ -74,17 +74,38 @@ export const createUsers = (req: Request, res: Response) => {
         })
     }
 }
-export const updateUsers = async (req: Request, res: Response) => {
+export const updateUsersById = async (req: Request, res: Response) => {
     try {
-        
-        const userId = req.params.id
-        const user = await User.findOneBy(
-          select:  
+        //obtener user por id
+        const userId = req.params.id;
+        //obtener name del user por body
+        const name = req.body.name;
+        //validar datos
+        const user = await User.findOneBy({   //RECUPERAMOS USUARIO POR ID PARA COMPROBAR SI EXISTE MEDIANTE FINDONEBY. SI NO EXISTE, ERROR 404
+            id: parseInt(userId)
+        })
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "user not found",
+                data: user
+            })
+        }
+        //tratar datos si existe el usuario en cuestión
+        const userUpdated = await User.update(
+            {
+                id: parseInt(userId),
+            },
+            {
+                name: name
+            }
         )
-        res.status(200).json(
+
+        return res.status(200).json(
             {
                 success: true,
-                message: "User updated succesfully"
+                message: "User updated succesfully",
+                data: userUpdated
             }
         )
     } catch (error) {
@@ -95,9 +116,20 @@ export const updateUsers = async (req: Request, res: Response) => {
         })
     }
 }
-export const deleteUsers = (req: Request, res: Response) => {
+export const deleteUsersById = async (req: Request, res: Response) => {
     try {
-        req.params.id
+        const userId = req.params.id
+        const userToRemove = await User.findOneBy({
+            id: parseInt(userId)
+        })
+
+        if (!userToRemove) {
+            res.status(404).json ({
+                success: false,
+                message: "Couldnt find user to remove"
+            })
+        }
+        
         res.status(200).json(
             {
                 success: true,
