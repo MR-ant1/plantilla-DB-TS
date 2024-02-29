@@ -7,6 +7,7 @@ import { createBooks, deleteBooks, getBooks, updateBooks } from "./controllers/b
 import { createFavouriteBooks, deleteFavouriteBooks, getFavouriteBooks, updateFavouriteBooks } from "./controllers/favouriteBookController";
 import { createLoans, deleteLoans, getLoans, updateLoans } from "./controllers/loanController";
 import { login, register } from "./controllers/authController";
+import { auth } from "./middlewares/auth";
 
 
 export const app: Application = express();
@@ -30,7 +31,7 @@ app.put('/api/roles/:id', updateRoles)
 app.delete('/api/roles/:id', deleteRoles)
 
 //users routes
-app.get('/api/users', getUsers)
+app.get('/api/users', auth, getUsers)
 app.post('api/users', createUsers)
 app.delete('/api/users/:id', deleteUsersById)
 app.get('/api/users/:id', getUserById)
