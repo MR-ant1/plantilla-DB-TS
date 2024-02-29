@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import  jwt  from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { User } from "../models/User";
 
 export const register = async (req: Request, res: Response) => {
@@ -89,7 +89,7 @@ export const login = async (req: Request, res: Response) => {
                 }
             }
         )
-        
+
         if (!user) {
             res.status(400).json({
                 success: false,
@@ -99,8 +99,8 @@ export const login = async (req: Request, res: Response) => {
 
         const isValidPassword = bcrypt.compareSync(password, user.password)
 
-        if(!isValidPassword) {
-            return res.status(400).json ({
+        if (!isValidPassword) {
+            return res.status(400).json({
                 success: false,
                 message: "Email or password invalid"
             })
@@ -117,7 +117,7 @@ export const login = async (req: Request, res: Response) => {
                 expiresIn: "2h"
             }
         )
-        
+
         res.status(200).json({
             success: true,
             message: "User logged succesfully",

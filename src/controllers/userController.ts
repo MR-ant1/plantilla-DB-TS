@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { User } from "../models/User";
 
 export const getUsers = async (req: Request, res: Response) => {
@@ -47,6 +47,28 @@ export const getUserById = async (req: Request, res: Response) => {
             message: "user retrieved",
             data: user
         })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "user cant be retrieved",
+            error: error
+        })
+    }
+}
+
+export const getOwnUser = (req: Request, res: Response, next: NextFunction) => {
+
+    try {
+        const userId = req.params.id
+
+        if (req.tokenData.userId !== parseInt(userId)) {
+            res.status(400).json({
+                success: false,
+                message: "UNAUTHORIZED"
+            })
+        }
+
+        next()
     } catch (error) {
         res.status(500).json({
             success: false,
@@ -124,12 +146,12 @@ export const deleteUsersById = async (req: Request, res: Response) => {
         })
 
         if (!userToRemove) {
-            res.status(404).json ({
+            res.status(404).json({
                 success: false,
                 message: "Couldnt find user to remove"
             })
         }
-        
+
         res.status(200).json(
             {
                 success: true,

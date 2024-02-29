@@ -8,6 +8,7 @@ import { createFavouriteBooks, deleteFavouriteBooks, getFavouriteBooks, updateFa
 import { createLoans, deleteLoans, getLoans, updateLoans } from "./controllers/loanController";
 import { login, register } from "./controllers/authController";
 import { auth } from "./middlewares/auth";
+import { isSuperAdmin } from "./middlewares/isSuperAdmin";
 
 
 export const app: Application = express();
@@ -31,11 +32,12 @@ app.put('/api/roles/:id', updateRoles)
 app.delete('/api/roles/:id', deleteRoles)
 
 //users routes
-app.get('/api/users', auth, getUsers)
-app.post('api/users', createUsers)
-app.delete('/api/users/:id', deleteUsersById)
-app.get('/api/users/:id', getUserById)
-app.put('/api/users/:id', updateUsersById)
+app.get('/api/users', auth, isSuperAdmin, getUsers)
+app.post('api/users', isSuperAdmin, createUsers)
+app.delete('/api/users/:id', auth, isSuperAdmin, deleteUsersById)
+app.get('/api/users/:id', auth, isSuperAdmin, getUserById)
+app.put('/api/users/:id', auth, isSuperAdmin, updateUsersById)
+
 
 //authors routes
 app.get('/api/authors', getAuthors)
@@ -63,4 +65,4 @@ app.delete('/api/loans/:id', deleteLoans)
 
 //auth routes
 app.post('/api/register', register)
-app.post('/api/login', login)
+app.post('/api/login', login) //HAY QUE AÑADIR /AUTH ANTESS DE LOGIN Y REGISTER
