@@ -6,7 +6,7 @@ import { createAuthors, deleteAuthors, getAuthors, updateAuthors } from "./contr
 import { createBooks, deleteBooks, getBooks, updateBooks } from "./controllers/bookController";
 import { createFavouriteBooks, deleteFavouriteBooks, getFavouriteBooks, updateFavouriteBooks } from "./controllers/favouriteBookController";
 import { createLoans, deleteLoans, getLoans, updateLoans } from "./controllers/loanController";
-import { register } from "./controllers/authController";
+import { login, register } from "./controllers/authController";
 
 
 export const app: Application = express();
@@ -62,3 +62,4 @@ app.delete('/api/loans/:id', deleteLoans)
 
 //auth routes
 app.post('/api/register', register)
+app.post('/api/login', login)

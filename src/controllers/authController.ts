@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
+import  jwt  from "jsonwebtoken";
 import { User } from "../models/User";
 
 export const register = async (req: Request, res: Response) => {
@@ -50,6 +51,84 @@ export const register = async (req: Request, res: Response) => {
         res.status(500).json({
             success: false,
             message: "User cant be registered",
+            error: error
+        })
+    }
+}
+export const login = async (req: Request, res: Response) => {
+    try {
+        //recuperar info login user
+        const email = req.body.email
+        const password = req.body.password
+
+        //validacion de email y password
+        if (!email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "email and password are needed"
+            })
+        }
+        //To do: validar formato email
+
+        const user: any = await User.findOne(           //CAMBIAR FIND ONE BY'S POR FIND ONE A SECAS
+            {
+                where: {
+                    email: email
+                },
+                relations: {
+                    role: true
+                },
+                select: {
+                    id: true,
+                    password: true,
+                    email: true,
+                    role: {
+                        id: true,
+                        name: true
+                    }
+                }
+            }
+        )
+        
+        if (!user) {
+            res.status(400).json({
+                success: false,
+                message: "Email or password invalid"
+            })
+        }
+
+        const isValidPassword = bcrypt.compareSync(password, user.password)
+
+        if(!isValidPassword) {
+            return res.status(400).json ({
+                success: false,
+                message: "Email or password invalid"
+            })
+        }
+
+        //CREAR TOKEN
+        const token = jwt.sign(
+            {
+                userId: user.id,
+                roleName: user.role.name
+            },
+            process.env.JWT_SECRET as string,
+            {
+                expiresIn: "2h"
+            }
+        )
+        
+        res.status(200).json({
+            success: true,
+            message: "User logged succesfully",
+            token: token
+        })
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: "User cant be logged",
             error: error
         })
     }
