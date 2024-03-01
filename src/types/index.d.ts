@@ -3,7 +3,7 @@ export type TokenData = {
     roleName: string;
 };
 
-//En este archivo incluimos DENTRO DEL REQUEST, LA PROPIEDAD TOKENDATA, QUE SE COMPONE DE USERID Y ROLENAME
+//En este archivo incluimos DENTRO DEL REQUEST, LA PROPIEDAD TOKENDATA, QUE CONTIENE USERID Y ROLENAME
 
 declare global {
     // Express

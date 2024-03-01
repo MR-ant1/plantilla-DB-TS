@@ -39,13 +39,6 @@ export const createBooks = (req: Request, res: Response) => {
             error: error
         }) 
     }
-    req.body
-    res.status(201).json(
-        {
-            success: true,
-            message: "book created succefully"
-        }
-    )
 }
 export const updateBooks = (req: Request, res: Response) => {
     try {

@@ -1,11 +1,52 @@
 import { NextFunction, Request, Response } from "express";
 import { User } from "../models/User";
+import { FindOperator, Like } from "typeorm";
 
 export const getUsers = async (req: Request, res: Response) => {
     try {
-        //USAMOS EL MODELO PARA RECUPERAR LOS USUARIOS. LA PROPIEDAD FIND ARROJARÁ TODOS LOS EXISTENTES GRACIAS AL BASEENTITY
+       
+        
+        /*  BUSQUEDA CON FILTROS ESCTRICTA
+
+        const email = req.query.email
+        const name = req.query.name
+        
+        interface queryFiltersI {
+            email?: string
+            name?: string
+        }
+        const queryFilters:queryFiltersI = {}
+
+        if(email) {
+            queryFilters.email = email as string
+        }
+        if(name) {
+            queryFilters.name = name as string
+        }*/
+
+        /*  BUSQUEDA FLEXIBLE QUE INCLUYA USUARIOS QUE CONTENGAN ELEMENTOS DE LA BUSQUEDA
+
+        const email = req.query.email
+        const name = req.query.name
+        
+        interface queryFiltersI {
+            email?: FindOperator<string>
+            name?: FindOperator<string>
+        }
+        const queryFilters:queryFiltersI = {}
+
+        if(req.query.email) {
+            queryFilters.email = Like("%"+req.query.email.toString()+"%")
+        }
+        if(req.query.name) {
+            queryFilters.name = Like("%"+req.query.name.toString()+"%")
+        } */
+
+
+         //USAMOS EL MODELO PARA RECUPERAR LOS USUARIOS. LA PROPIEDAD FIND ARROJARÁ TODOS LOS EXISTENTES GRACIAS AL BASEENTITY
         const users = await User.find(
-            {                           //MEDIANTE SELECT FILTRAMOS LA INFO DE USER QUE QUEREMOS CONSULTAR PARA, POR EJEMPLO, EVITAR MOSTRAR LA CONTRASEÑA
+            {     
+                //where: queryFilters,              //MEDIANTE SELECT FILTRAMOS LA INFO DE USER QUE QUEREMOS CONSULTAR PARA, POR EJEMPLO, EVITAR MOSTRAR LA CONTRASEÑA
                 select: {
                     id: true,
                     name: true,
@@ -67,8 +108,6 @@ export const getOwnUser = (req: Request, res: Response, next: NextFunction) => {
                 message: "UNAUTHORIZED"
             })
         }
-
-        next()
     } catch (error) {
         res.status(500).json({
             success: false,
@@ -138,6 +177,38 @@ export const updateUsersById = async (req: Request, res: Response) => {
         })
     }
 }
+
+export const updateProfile = async (req:Request, res: Response) => {
+ try {   
+        const userId = req.tokenData.userId
+        const name = req.body.name
+        const email = req.body.email
+        const password = req.body.password
+
+        if (!name || !email || !password) {
+            res.status(400).json ({
+                success: false,
+                message:"Name, email and password are needed"
+            })
+        }
+        const userUpdated = User.update (
+           {id: userId},
+           {name: name,
+           email: email,
+           password: password} 
+        )
+    res.status(200).json({
+        success: true,
+        message:"user updated",
+        data: userUpdated
+    })
+} catch (error) {
+    res.status(500).json({
+        success: false,
+        message: "can't update user",
+        error: error
+    })
+}}
 export const deleteUsersById = async (req: Request, res: Response) => {
     try {
         const userId = req.params.id

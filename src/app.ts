@@ -1,7 +1,7 @@
 
 import express, { Application } from "express";
 import { createRoles, deleteRoles, getRoles, updateRoles } from "./controllers/roleController";
-import { getUsers, createUsers, getUserById, updateUsersById, deleteUsersById } from "./controllers/userController"
+import { getUsers, createUsers, getUserById, updateUsersById, deleteUsersById, updateProfile } from "./controllers/userController"
 import { createAuthors, deleteAuthors, getAuthors, updateAuthors } from "./controllers/authorController";
 import { createBooks, deleteBooks, getBooks, updateBooks } from "./controllers/bookController";
 import { createFavouriteBooks, deleteFavouriteBooks, getFavouriteBooks, updateFavouriteBooks } from "./controllers/favouriteBookController";
@@ -33,10 +33,11 @@ app.delete('/api/roles/:id', deleteRoles)
 
 //users routes
 app.get('/api/users', auth, isSuperAdmin, getUsers)
-app.post('api/users', isSuperAdmin, createUsers)
+app.post('api/users', auth, isSuperAdmin, createUsers)
 app.delete('/api/users/:id', auth, isSuperAdmin, deleteUsersById)
 app.get('/api/users/:id', auth, isSuperAdmin, getUserById)
 app.put('/api/users/:id', auth, isSuperAdmin, updateUsersById)
+app.put("/api/users/profile", auth, updateProfile)
 
 
 //authors routes

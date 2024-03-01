@@ -1,4 +1,5 @@
 import { Request, Response } from "express"
+import { Author } from "../models/Author"
 
 export const getAuthors = (req: Request, res: Response) => {
     try {
@@ -24,11 +25,25 @@ export const getAuthors = (req: Request, res: Response) => {
 }
 export const createAuthors = (req: Request, res: Response) => {
     try {
-        req.body;
+        const name = req.body.name
+        const nacionality = req.body.nacionality
+
+        if(!name || !nacionality) {
+            res.status(400).json({
+                success:false,
+                message:"Name and nacionality are needed"
+            })
+        }
+        const newAuthor = Author.create({
+            name: name,
+            nacionality: nacionality
+        }).save()
+        
         res.status(201).json(
             {
                 success: true,
-                message: "Author created succesfully"
+                message: "Author created succesfully",
+                data: newAuthor
             }
         )
     } catch (error) {

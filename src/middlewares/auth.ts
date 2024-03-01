@@ -13,7 +13,7 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
                 message: "UNAUTHORIZED"
             })
         }
-        //verificar que el jwt es propio de la aplicacion con el token + secreto y ademas verify tambien devuelve los datos del token
+        //verificar que el jwt es propio de la aplicacion con el token + secreto y ademas verify tambien devuelve los datos del token pudiendo asi crear la variable req.tokendata
         const decoded = jwt.verify(
             token,
             process.env.JWT_SECRET as string

@@ -70,7 +70,7 @@ export const login = async (req: Request, res: Response) => {
         }
         //To do: validar formato email
 
-        const user: any = await User.findOne(           //CAMBIAR FIND ONE BY'S POR FIND ONE A SECAS
+        const user = await User.findOne(           //CAMBIAR FIND ONE BY'S POR FIND ONE A SECAS
             {
                 where: {
                     email: email
@@ -97,7 +97,7 @@ export const login = async (req: Request, res: Response) => {
             })
         }
 
-        const isValidPassword = bcrypt.compareSync(password, user.password)
+        const isValidPassword = bcrypt.compareSync(password, user!.password)
 
         if (!isValidPassword) {
             return res.status(400).json({
@@ -109,8 +109,8 @@ export const login = async (req: Request, res: Response) => {
         //CREAR TOKEN
         const token = jwt.sign(
             {
-                userId: user.id,
-                roleName: user.role.name
+                userId: user!.id,
+                roleName: user!.role.name
             },
             process.env.JWT_SECRET as string,
             {
